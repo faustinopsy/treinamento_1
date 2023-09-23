@@ -64,7 +64,8 @@ async function predict() {
 
         const percentage = (prediction[i].probability * 100).toFixed(2);
         const complementPercentage = 100 - percentage;
-		if ((prediction[0].probability * 100).toFixed(2) > 70) {
+        console.log(prediction[2])
+		if ((prediction[2].probability * 100).toFixed(2) > 70) {
 					//beep();
 					speak("Acordaaaa!!!");
 				}
