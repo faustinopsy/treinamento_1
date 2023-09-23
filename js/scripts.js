@@ -1,14 +1,15 @@
 const URL = "./my_model/";
-
+const modelURL = URL + "model.json";
+const metadataURL = URL + "metadata.json";
 let model, webcam, labelContainer, maxPredictions;
 
+let iniciado = false;
 async function init() {
-    if (webcam) {
-        webcam.stop();
-        return false;
+    if (iniciado) {
+        stopCamera() ;
+        iniciado = false;
     }
-    const modelURL = URL + "model.json";
-    const metadataURL = URL + "metadata.json";
+    document.getElementById("botao").innerHTML="Parar";
 
     model = await tmImage.load(modelURL, metadataURL);
     maxPredictions = model.getTotalClasses();
@@ -26,7 +27,17 @@ async function init() {
         labelDiv.className = 'labelDiv'; 
         labelContainer.appendChild(labelDiv);
     }
+    iniciado = true;
 }
+
+function stopCamera() {
+    location.reload();
+    
+}
+
+
+
+
 
 async function loop() {
     webcam.update(); 
@@ -79,8 +90,6 @@ function speak(text) {
 
 
 
-
-let context = new (window.AudioContext || window.webkitAudioContext)();
 function beep(duration = 300, frequency = 440, volume = 1) {
     let oscillator = context.createOscillator();
     let gain = context.createGain();
